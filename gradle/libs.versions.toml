@@ -13,6 +13,7 @@ hilt = "2.51"
 roomVersion = "2.6.1"
 androidGradlePlugin = "8.3.0"
 ksp = "1.9.22-1.0.17"
+androidxHiltNavigationCompose = "1.2.0"
 
 
 [libraries]
@@ -37,6 +38,8 @@ hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", vers
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 hilt-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
 room = { module = "androidx.room:room-runtime", version.ref = "roomVersion" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
 
 
 [plugins]

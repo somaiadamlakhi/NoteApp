@@ -6,65 +6,56 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.startappz.noteapp.data.NoteDataSource
 import com.startappz.noteapp.model.Note
 import com.startappz.noteapp.screen.NoteScreen
 import com.startappz.noteapp.screen.NoteViewModel
 import com.startappz.noteapp.ui.theme.NoteAppTheme
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.UUID
 
+@ExperimentalComposeUiApi
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             NoteAppTheme {
-                val noteViewModel: NoteViewModel by viewModels()
+                val noteViewModel by viewModels<NoteViewModel>()
 
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+                Surface(color = Color.White) {
                     NotesApp(noteViewModel)
+
                 }
             }
         }
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
+@ExperimentalComposeUiApi
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun NotesApp(noteViewModel: NoteViewModel) {
+    val notesList = noteViewModel.noteList.collectAsState().value
+
+//    NoteScreen(notes = notesList,
+//        onRemoveNote = { noteViewModel.removeNote(it) },
+//        onAddNote = { noteViewModel.addNote(it) })
+
 }
+
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun DefaultPreview() {
     NoteAppTheme {
-        Greeting("Android")
-    }
-}
 
-@RequiresApi(Build.VERSION_CODES.O)
-@Composable
-fun NotesApp(noteViewModel: NoteViewModel = viewModel()) {
-    val notesList = noteViewModel.getAllNotes()
-    NoteScreen(notes = notesList,
-        onAddNote = { note ->
-            noteViewModel.addNote(note)
-        },
-        onRemoveNote = { note ->
-            noteViewModel.removeNote(note)
-        })
+    }
 }
