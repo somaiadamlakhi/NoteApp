@@ -45,9 +45,9 @@ class MainActivity : ComponentActivity() {
 fun NotesApp(noteViewModel: NoteViewModel) {
     val notesList = noteViewModel.noteList.collectAsState().value
 
-//    NoteScreen(notes = notesList,
-//        onRemoveNote = { noteViewModel.removeNote(it) },
-//        onAddNote = { noteViewModel.addNote(it) })
+    NoteScreen(notes = notesList,
+        onRemoveNote = { noteViewModel.removeNote(it) },
+        onAddNote = { noteViewModel.addNote(it) })
 
 }
 
